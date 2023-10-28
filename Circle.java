@@ -1,14 +1,23 @@
+/*
+ * Author: Đặng Quốc Huy (Huy Daniel)
+ * Github: https://github.com/danieldev23
+ * Facebook: https://facebook.com/huycoder2k5
+ * Created at: 10/29/23, 1:24 AM
+ */
 public class Circle {
     private double radius;
     private String color;
 
     public Circle() {
-        this.radius = 1.0;
-        this.color = "red";
+        radius = 1.0;
+        color = "red";
     }
+
     public Circle(double radius) {
         this.radius = radius;
+        color = "red";
     }
+
     public Circle(double radius, String color) {
         this.radius = radius;
         this.color = color;
@@ -30,14 +39,12 @@ public class Circle {
         this.color = color;
     }
 
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
     @Override
     public String toString() {
-        return "Circle{" +
-                "radius=" + radius +
-                ", color='" + color + '\'' +
-                '}';
-    }
-    public double getArea() {
-        return radius*radius*3.14;
+        return "Circle: radius=" + radius + ", color=" + color;
     }
 }
