@@ -43,7 +43,7 @@ public class Main {
                     System.out.print("Enter Student First Name: ");
                     String studentFirstName = scanner.next();
                     System.out.print("Enter Student Age: ");
-                    String tuoi = scanner.nextLine();
+                    String tuoi = scanner.next();
                     int studentAge = Integer.parseInt(tuoi);
                     library.addStudent(studentId, studentEmail, studentLastName, studentFirstName, studentAge);
                     break;
