@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Comparator;
@@ -6,9 +8,10 @@ import java.util.*;
 import static java.lang.Integer.parseInt;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         ManageLibrary library = new ManageLibrary();
         Scanner scanner = new Scanner(System.in);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         while (true) {
             System.out.println("Library Management System Menu:");
@@ -45,7 +48,16 @@ public class Main {
                     System.out.print("Enter Student Age: ");
                     String tuoi = scanner.next();
                     int studentAge = Integer.parseInt(tuoi);
-                    library.addStudent(studentId, studentEmail, studentLastName, studentFirstName, studentAge);
+                    System.out.print("Enter the Id of books you want to borrow: ");
+                    ArrayList<String> borrowBookIds = new ArrayList<>();
+                    String bookIdBorrowed = scanner.next();
+                    String sDate = scanner.next();
+                    Date startDate = df.parse(sDate);
+                    String eDate = scanner.next();
+                    Date endDate = df.parse(eDate);
+                    borrowBookIds.add(bookIdBorrowed);
+
+                    library.addStudent(studentId, studentEmail, studentLastName, studentFirstName, studentAge, borrowBookIds);
                     break;
                 case 3:
                     library.showAllStudentsWithBorrowedBooks();
