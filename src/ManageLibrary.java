@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.Arrays;
 
 class ManageLibrary {
     private ArrayList<Book> books;
@@ -15,24 +14,54 @@ class ManageLibrary {
         books.add(new Book(id, name));
     }
 
-    public void addStudent(String id, String email, String lastName, String firstName, int age) {
-        students.add(new Student(id, email, lastName, firstName, age));
+    public void addStudent(String id, String email, String lastName, String firstName, int age, ArrayList<String> borrowBookIds) {
+        Student student = new Student(id, email, lastName, firstName, age);
+        for (String bookId : borrowBookIds) {
+            Book book = findBookById(bookId);
+            if (book != null) {
+                student.borrowBook(bookId);
+            }
+        }
+        students.add(student);
     }
-
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+    private Book findBookById(String bookId) {
+        for (Book book : books) {
+            if (book.getId().equals(bookId)) {
+                return book;
+            }
+        }
+        return null;
+    }
     public void showAllStudentsWithBorrowedBooks() {
         for (Student student : students) {
             student.display();
             System.out.println();
+            System.out.print("Book name: ");
+            System.out.println(getBookName());
         }
     }
 
-    public void showBorrowingBooksOfStudent(String studentId) {
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                student.display();
-                break;
+    private String getBookName() {
+        for (Book book : books) {
+                return book.getName();
+
+        }
+        return "";
+    }
+    private String getBookById(String bookId) {
+        for (Book book : books) {
+            if (book.getId().equals(bookId)) {
+                return book.getName();
             }
         }
+        return null;
+    }
+    public void showBorrowingBooksOfStudent(String studentId) {
+        System.out.println(getBookById(studentId));
+
     }
 
     public void resetBookStatus(String bookId) {
@@ -82,7 +111,23 @@ class ManageLibrary {
             }
         });
     }
-    public ArrayList<Book> getBooks() {
-        return books;
+
+    public void showBorrowedBooks(String studentId) {
+
+        for(Student s : students) {
+            if(s.id.equals(studentId)) {
+
+                System.out.println("Student: " + s.id + ", " + s.firstName + " " + s.lastName);
+                System.out.println("Borrowed books:");
+
+                Arrays.stream(s.borrowBook).forEach(bookId -> {
+                    for (Book b : books) {
+                        if (b.id.equals(bookId)) {
+                            b.display(); //print book details
+                        }
+                    }
+                });
+            }
+        }
     }
 }
